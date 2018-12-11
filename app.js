@@ -7,10 +7,10 @@ const port = process.env.PORT || 3000;
 let db;
 
 if (process.env.ENV==='Test') {
-    db = mongoose.connect('mongodb://localhost/bookapi_test');
+    db = mongoose.connect('mongodb://localhost/bookapi_test',{useNewUrlParser: true});
 }
 else {
-   db = mongoose.connect('mongodb://localhost/bookapi');
+   db = mongoose.connect('mongodb://localhost/bookapi', {useNewUrlParser: true});
 }
 
 const app = express();
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json);
 
 bookRouter = require('./Routes/bookRoutes')(Book);
-app.use('/api', bookRouter);
+app.use('/', bookRouter);
 
 app.get("/", function(req,res) {
    res.send("This app is being restarted by gulp nodemon" +
